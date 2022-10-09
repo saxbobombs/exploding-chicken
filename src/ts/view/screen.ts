@@ -72,7 +72,12 @@ export default class Screen extends AbstractView {
                     if(_chicken.path.length > 0){
                         _me.context.beginPath();
                         _me.context.moveTo(_chicken.path[0].x + 15, _chicken.path[0].y + 15);
-                        _me.context.lineTo(_chicken.path[_chicken.path.length -1].x + 15, _chicken.path[_chicken.path.length -1].y + 15);
+                        for (let _x = 0; _x < _chicken.path.length; _x++) {
+                            _me.context.lineTo(_chicken.path[_x].x + 15, _chicken.path[_x].y + 15);
+                        }
+                        for (let _y = _chicken.path.length - 1; _y > 0; _y--) {
+                            _me.context.lineTo(_chicken.path[_y].x + 15, _chicken.path[_y].y + 15);
+                        }
                         _me.context.lineTo(_chicken.path[0].x + 15, _chicken.path[0].y + 15);
                         _me.context.closePath();
 

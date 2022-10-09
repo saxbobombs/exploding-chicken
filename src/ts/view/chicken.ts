@@ -3,6 +3,7 @@ import Screen from './screen';
 import AbstractView from './abstractView';
 
 import chickenPngSrc from './../../assets/images/chicken2.png';
+import Point from '../abstract/point';
 
 export default class chicken extends AbstractView {
     sprite: HTMLImageElement = new Image();
@@ -67,26 +68,28 @@ export default class chicken extends AbstractView {
 
     /**
      * generate the route
-     *
-     * @param pForceDirectionX 1|0|-1|false
-     * @param pForceDirectionY 1|0|-1|false
      */
-    _createPath(pForceDirectionX: any, pForceDirectionY: any) {
+    _createPath() {
         let _posStartX = this.currentPathX,
             _posStartY = this.currentPathY;
+        
+        let startPoint: Point = null;
+        let endPoint: Point = null;
+        let path: Point[] = [];
 
-        this.directionX = (pForceDirectionX !== false) ? pForceDirectionX : Utils.getRandom(-1, 1);
-        this.directionY = (pForceDirectionY !== false) ? pForceDirectionY : Utils.getRandom(-1, 1);
+        for(let _i = 0; _i < Utils.getRandom(1,4); _i++) {
+            if(!endPoint) {
+                startPoint = new Point(_posStartX, _posStartY);
+            } else {
+                startPoint = endPoint;
+            }
 
-        for (var _i = 0; _i < Utils.getRandom(1, 10000); _i++) {
-            const _nextX = _posStartX + (_i * this.directionX),
-                _nextY = _posStartY + (_i * this.directionY);
+            endPoint = new Point(Utils.getRandom(0,1000), Utils.getRandom(0,1000));
 
-            this.path.push({
-                x: _nextX,
-                y: _nextY,
-            });
+            path = path.concat(Utils.getStraightPathToPoint(startPoint, endPoint));
         }
+        
+        this.path = path;
 
         this.fireEvent('pathCreated', this.path);
     }
@@ -102,11 +105,12 @@ export default class chicken extends AbstractView {
         const _borders = this.screen.getBorders();
 
         if (this.path.length == 0) {
-            this._createPath(false, false);
+            this._createPath();
         }
 
         let _nextStep = this.path.shift();
 
+        // TODO: enhance collision detection
         let _forceX: any = false,
             _forceY: any = false;
 
@@ -126,7 +130,7 @@ export default class chicken extends AbstractView {
 
         if (_forceX !== false || _forceY !== false) {
             this.path = [];
-            this._createPath(_forceX, _forceY);
+            this._createPath();
             _nextStep = this.path.shift();
         }
 
