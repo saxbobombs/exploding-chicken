@@ -10,7 +10,7 @@ click on chicken to let them burst
 
 ## usage
 
-https://saxoneee.github.io/exploding-chicken/dist/
+https://saxbobombs.github.io/exploding-chicken/dist/
 
 ## todos
 
