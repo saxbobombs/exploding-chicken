@@ -44,6 +44,9 @@ module.exports = {
 
     plugins: [
         new CleanWebpackPlugin(),
-        new HtmlWebpackPlugin()
+        new HtmlWebpackPlugin({
+            meta: 'name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0"',
+            title: 'exploding chicken'
+        })
     ]
 };

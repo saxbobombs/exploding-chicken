@@ -14,12 +14,13 @@ export default class Screen extends AbstractView {
         super();
 
         var _me = this;
+        const _todoEnhanceThis = 20; // TODO: calc viewport width and height more elegant
 
         _me.options = pOptions;
 
         _me.canvas = document.createElement('canvas');
-        _me.canvas.width = pScreenDest.clientWidth;
-        _me.canvas.height = pScreenDest.clientHeight;
+        _me.canvas.width = pScreenDest.clientWidth - _todoEnhanceThis;
+        _me.canvas.height = pScreenDest.clientHeight - _todoEnhanceThis;
 
         _me.context = _me.canvas.getContext('2d');
 
@@ -30,8 +31,8 @@ export default class Screen extends AbstractView {
         _me.screenDestEl.appendChild(_me.get());
 
         window.addEventListener('resize', Utils.debounce(function () {
-            _me.canvas.width = _me.screenDestEl.clientWidth;
-            _me.canvas.height = _me.screenDestEl.clientHeight;
+            _me.canvas.width = _me.screenDestEl.clientWidth - _todoEnhanceThis;
+            _me.canvas.height = _me.screenDestEl.clientHeight - _todoEnhanceThis;
         }));
     }
 
