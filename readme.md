@@ -14,5 +14,7 @@ https://saxbobombs.github.io/exploding-chicken/dist/
 
 ## todos
 
+* update project
+* substitute webpack
 * unbind events
 * faster explosion animation
